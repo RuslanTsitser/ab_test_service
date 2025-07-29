@@ -4,7 +4,7 @@ import 'trial_period.dart';
 class PaywallProduct {
   const PaywallProduct({
     required this.priceCurrency,
-    this.trialPeriod,
+    required this.trialPeriod,
     this.subscriptionPeriod,
     this.fullPrice,
     this.fullPriceValue,
@@ -15,7 +15,7 @@ class PaywallProduct {
   });
 
   final String priceCurrency;
-  final TrialPeriod? trialPeriod;
+  final TrialPeriod trialPeriod;
   final SubscriptionPeriod? subscriptionPeriod;
   final String? fullPrice;
   final double? fullPriceValue;
@@ -24,5 +24,5 @@ class PaywallProduct {
   final int? discountPercent;
   final PaywallProduct? parentProduct;
 
-  bool get withTrial => trialPeriod != null;
+  bool get withTrial => trialPeriod != TrialPeriod.noTrial;
 }

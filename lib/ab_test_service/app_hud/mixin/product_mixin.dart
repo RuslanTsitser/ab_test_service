@@ -28,7 +28,7 @@ mixin ProductMixin {
     final priceCurrency =
         this.priceCurrency(type, productType, isParent: false, config: config);
     final withTrial =
-        getWithTrial(type, productType, isParent: false, config: config);
+        getTrialPeriod(type, productType, isParent: false, config: config);
     final subscriptionPeriod = getSubscriptionPeriod(type, productType,
         isParent: false, config: config);
     final fullPrice =
@@ -51,7 +51,7 @@ mixin ProductMixin {
         priceCurrency: this
             .priceCurrency(type, productType, isParent: true, config: config),
         trialPeriod:
-            getWithTrial(type, productType, isParent: true, config: config),
+            getTrialPeriod(type, productType, isParent: true, config: config),
         subscriptionPeriod: getSubscriptionPeriod(type, productType,
             isParent: true, config: config),
         fullPrice: parentFullPrice,
@@ -188,7 +188,7 @@ mixin ProductMixin {
     return null;
   }
 
-  TrialPeriod? getWithTrial(
+  TrialPeriod getTrialPeriod(
     BasePlacementType type,
     BaseProductType purchaseType, {
     required bool isParent,
