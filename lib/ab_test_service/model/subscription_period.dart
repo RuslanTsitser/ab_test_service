@@ -6,6 +6,7 @@ abstract class SubscriptionPeriod {
   bool get isYear;
   bool get isMonth;
   bool get isWeek;
+  int get days;
 }
 
 enum DefaultSubscriptionPeriodEnum implements SubscriptionPeriod {
@@ -21,4 +22,11 @@ enum DefaultSubscriptionPeriodEnum implements SubscriptionPeriod {
 
   @override
   bool get isWeek => this == week;
+
+  @override
+  int get days => switch (this) {
+        week => 7,
+        month => 30,
+        year => 365,
+      };
 }

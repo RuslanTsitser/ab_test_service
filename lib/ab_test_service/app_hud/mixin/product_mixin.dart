@@ -1,7 +1,6 @@
 import 'package:apphud/models/apphud_models/apphud_paywall.dart';
 import 'package:apphud/models/apphud_models/apphud_product.dart';
 import 'package:apphud/models/product_details/product_details_wrapper.dart';
-import 'package:apphud/models/sk_product/discount_payment_mode_wrapper.dart';
 import 'package:apphud/models/sk_product/sk_product_wrapper.dart';
 import 'package:apphud/models/sk_product/subscription_period_time_wrapper.dart';
 import 'package:collection/collection.dart';
@@ -201,6 +200,7 @@ mixin ProductMixin {
       config: config,
     );
     if (androidProductDetails != null) {
+      // TODO: add trial period for android
       return androidProductDetails.getTrialPeriod();
     }
 
@@ -211,10 +211,20 @@ mixin ProductMixin {
       config: config,
     );
     if (iosSkProduct != null) {
-      return iosSkProduct.introductoryPrice?.paymentMode ==
-              SKProductDiscountPaymentMode.freeTrail
-          ? TrialPeriod.threeDays
-          : TrialPeriod.noTrial;
+      final subscriptionPeriod =
+          iosSkProduct.introductoryPrice?.subscriptionPeriod;
+      if (subscriptionPeriod == null) return TrialPeriod.noTrial;
+      if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.day &&
+          subscriptionPeriod.numberOfUnits == 3) {
+        return TrialPeriod.threeDays;
+      } else if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.day &&
+          subscriptionPeriod.numberOfUnits == 7) {
+        return TrialPeriod.oneWeek;
+      } else if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.month) {
+        return TrialPeriod.oneMonth;
+      } else {
+        return TrialPeriod.oneYear;
+      }
     }
 
     return TrialPeriod.noTrial;

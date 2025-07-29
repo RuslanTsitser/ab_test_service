@@ -25,4 +25,27 @@ class PaywallProduct {
   final PaywallProduct? parentProduct;
 
   bool get withTrial => trialPeriod != TrialPeriod.noTrial;
+
+  PaywallProduct copyWith({
+    String? priceCurrency,
+    TrialPeriod? trialPeriod,
+    SubscriptionPeriod? subscriptionPeriod,
+    String? fullPrice,
+    double? fullPriceValue,
+    String? discountedPrice,
+    double? discountedPriceValue,
+    int? discountPercent,
+    PaywallProduct? parentProduct,
+  }) =>
+      PaywallProduct(
+        priceCurrency: priceCurrency ?? this.priceCurrency,
+        trialPeriod: trialPeriod ?? this.trialPeriod,
+        subscriptionPeriod: subscriptionPeriod ?? this.subscriptionPeriod,
+        fullPrice: fullPrice ?? this.fullPrice,
+        fullPriceValue: fullPriceValue ?? this.fullPriceValue,
+        discountedPrice: discountedPrice ?? this.discountedPrice,
+        discountedPriceValue: discountedPriceValue ?? this.discountedPriceValue,
+        discountPercent: discountPercent ?? this.discountPercent,
+        parentProduct: parentProduct ?? this.parentProduct,
+      );
 }
