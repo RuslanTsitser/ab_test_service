@@ -8,9 +8,10 @@ mixin UserPremiumMixin {
   Future<UserPremiumSource> getCachedIsPremium();
   Future<void> setDebugPremiumDate(DateTime date);
   Future<DateTime?> getDebugPremiumDate();
+  bool get isOffline;
+
   void logInfo(Object message);
   void logError(Object message, [Object? error, StackTrace? stackTrace]);
-  bool get isOffline;
 
   static const String isRestoredKey = 'isRestored';
 

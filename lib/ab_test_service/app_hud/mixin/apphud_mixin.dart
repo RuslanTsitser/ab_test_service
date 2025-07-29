@@ -17,7 +17,7 @@ mixin ApphudMixin {
     }
   }
 
-  Future<void> dispose() async {
+  Future<void> disposeApphud() async {
     await Future.wait([Apphud.logout()]);
   }
 

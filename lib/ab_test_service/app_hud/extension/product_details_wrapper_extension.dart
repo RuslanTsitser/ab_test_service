@@ -3,6 +3,7 @@ import 'package:apphud/models/product_details/product_details_wrapper.dart';
 import 'package:apphud/models/product_details/subscription_offer_details.dart';
 
 import '../../model/subscription_period.dart';
+import '../../model/trial_period.dart';
 import 'one_time_purchase_offer_details_wrapper_extension.dart';
 import 'subscription_offer_details_wrapper_extension.dart';
 
@@ -54,11 +55,12 @@ extension ProductDetailsWrapperExtension on ProductDetailsWrapper {
     return _subscriptionOfferDetails?.getFullPrice();
   }
 
-  bool getWithTrial() {
+  TrialPeriod getTrialPeriod() {
     if (_oneTimePurchaseOfferDetails != null) {
-      return _oneTimePurchaseOfferDetails?.getWithTrial() ?? false;
+      return _oneTimePurchaseOfferDetails?.getTrialPeriod() ??
+          TrialPeriod.noTrial;
     }
-    return _subscriptionOfferDetails?.getWithTrial() ?? false;
+    return _subscriptionOfferDetails?.getTrialPeriod() ?? TrialPeriod.noTrial;
   }
 
   SubscriptionPeriod? getSubscriptionPeriod() {

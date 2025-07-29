@@ -8,7 +8,7 @@ import '../../model/user_premium_source.dart';
 mixin ApphudCacheMixin {
   SharedPreferences? _preferences;
   void logInfo(Object message);
-  UserPremiumSource userPremiumSource(String source);
+  UserPremiumSource getUserPremiumSource(String source);
 
   static const apphudPlacementsCache = 'apphud_placements_cache';
   static const userPremiumSourceCache = 'user_premium_source_cache';
@@ -37,9 +37,8 @@ mixin ApphudCacheMixin {
     }
 
     final placementsJson = jsonDecode(placementsJsonString) as List;
-    final placements = placementsJson
-        .map((e) => ApphudPlacement.fromJson(e as Map))
-        .toList();
+    final placements =
+        placementsJson.map((e) => ApphudPlacement.fromJson(e as Map)).toList();
     return placements;
   }
 
@@ -55,7 +54,7 @@ mixin ApphudCacheMixin {
   Future<UserPremiumSource> getCachedIsPremium() async {
     logInfo('ApphudCacheMixin getCachedIsPremium');
     await _initCache();
-    return userPremiumSource(
+    return getUserPremiumSource(
       _preferences?.getString(userPremiumSourceCache) ?? 'none',
     );
   }

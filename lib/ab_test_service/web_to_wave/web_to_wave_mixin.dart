@@ -5,9 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../app_hud/mixin/offline_mode_mixin.dart';
-
-mixin WebToWaveMixin on OfflineModeMixin {
+mixin WebToWaveMixin {
   /// Example: 'hello-world-api-key'
   String get web2WaveApiKey;
 
@@ -16,6 +14,14 @@ mixin WebToWaveMixin on OfflineModeMixin {
 
   /// Example: 'api/user/subscriptions'
   String get path;
+
+  void logInfo(Object message);
+
+  void logError(Object message, [Object? error, StackTrace? stackTrace]);
+
+  Future<void> checkOfflineMode();
+
+  bool get isOffline;
 
   /// Checks if the user has an active subscription in the Web2Wave service.
   Future<(bool, String?)> checkIsWeb2WavePremium() async {
@@ -73,10 +79,8 @@ mixin WebToWaveMixin on OfflineModeMixin {
   /// Parses the response from the Web2Wave service and returns whether the user has an active subscription.
   Web2WaveResponse _handleSubscriptionResponse(String responseBody) {
     try {
-      Map<String, dynamic> jsonResponse =
-          jsonDecode(responseBody) as Map<String, dynamic>;
-      List<dynamic> subscriptions =
-          jsonResponse['subscription'] as List<dynamic>;
+      Map<String, dynamic> jsonResponse = jsonDecode(responseBody) as Map<String, dynamic>;
+      List<dynamic> subscriptions = jsonResponse['subscription'] as List<dynamic>;
 
       bool hasActiveSubscription = subscriptions.any((sub) {
         String status = sub['status'] as String;
@@ -113,7 +117,6 @@ mixin WebToWaveMixin on OfflineModeMixin {
   /// Returns the user id of the Web2Wave service if it was saved before.
   Future<String?> getWeb2WaveUserId() async {
     final prefs = await SharedPreferences.getInstance();
-    // return 'test'; // TODO: For test purposes
     return prefs.getString(_web2WaveUserIdKey);
   }
 
@@ -123,8 +126,7 @@ mixin WebToWaveMixin on OfflineModeMixin {
     await prefs.setString(_web2WaveUserIdKey, userId);
   }
 
-  static const String _web2WaveIsPremiumKey =
-      'WebToWaveMixin.web2WaveIsPremium';
+  static const String _web2WaveIsPremiumKey = 'WebToWaveMixin.web2WaveIsPremium';
   static const String _web2WaveCancelLink = 'WebToWaveMixin.web2WaveCancelLink';
 
   Future<void> cacheWeb2WaveIsPremium(Web2WaveResponse response) async {
@@ -155,6 +157,5 @@ class Web2WaveResponse {
     this.hasActiveSubscription = false,
   });
 
-  const Web2WaveResponse.empty([this.hasActiveSubscription = false])
-    : cancelSubscriptionLink = null;
+  const Web2WaveResponse.empty([this.hasActiveSubscription = false]) : cancelSubscriptionLink = null;
 }

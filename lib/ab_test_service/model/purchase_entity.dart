@@ -6,4 +6,11 @@ class PurchaseEntity {
 
   final PurchaseType purchaseType;
   final ProductEntity product;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'purchase_type': purchaseType.name,
+      'product': product.toJson(),
+    };
+  }
 }

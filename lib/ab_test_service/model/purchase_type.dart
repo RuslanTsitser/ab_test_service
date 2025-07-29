@@ -1,1 +1,4 @@
-abstract class PurchaseType {}
+enum PurchaseType {
+  purchase,
+  none;
+}

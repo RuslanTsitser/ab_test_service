@@ -1,13 +1,13 @@
 import 'package:apphud/apphud.dart';
 import 'package:apphud/models/apphud_models/apphud_paywall.dart';
 
-import '../../model/placement_type.dart';
+import '../../model/base_placement_type.dart';
 
 mixin LogPaywallMixin {
-  ApphudPaywall? getPaywallByType(PlacementType type);
+  ApphudPaywall? getPaywallByType(BasePlacementType type);
   void logInfo(Object message);
 
-  Future<void> logShowPaywall(PlacementType type) async {
+  Future<void> logShowPaywall(BasePlacementType type) async {
     final paywall = getPaywallByType(type);
     if (paywall != null) {
       await Apphud.paywallShown(paywall);
@@ -15,7 +15,7 @@ mixin LogPaywallMixin {
     logInfo('LogPaywallMixin.logShowPaywall $type');
   }
 
-  Future<void> logClosePaywall(PlacementType type) async {
+  Future<void> logClosePaywall(BasePlacementType type) async {
     final paywall = getPaywallByType(type);
     if (paywall != null) {
       await Apphud.paywallClosed(paywall);

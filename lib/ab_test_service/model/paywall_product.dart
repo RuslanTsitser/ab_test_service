@@ -11,6 +11,7 @@ class PaywallProduct {
     this.discountedPrice,
     this.discountedPriceValue,
     this.parentProduct,
+    this.discountPercent,
   });
 
   final String priceCurrency;
@@ -20,8 +21,8 @@ class PaywallProduct {
   final double? fullPriceValue;
   final String? discountedPrice;
   final double? discountedPriceValue;
+  final int? discountPercent;
   final PaywallProduct? parentProduct;
 
   bool get withTrial => trialPeriod != null;
-  int? get discountPercent => null;
 }

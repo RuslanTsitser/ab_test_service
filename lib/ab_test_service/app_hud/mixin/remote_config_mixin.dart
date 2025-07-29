@@ -3,27 +3,26 @@ import 'dart:collection';
 import 'package:apphud/apphud.dart';
 import 'package:apphud/models/apphud_models/apphud_placement.dart';
 
-import '../../model/placement_type.dart';
-import '../../model/remote_config.dart';
+import '../../model/base_placement_type.dart';
+import '../../model/base_remote_config.dart';
 
-mixin RemoteConfigMixin {
+mixin RemoteConfigMixin<R extends BaseRemoteConfig> {
   bool get isOffline;
   Future<void> cachePlacements(List<ApphudPlacement> placements);
   Future<List<ApphudPlacement>> getCachedPlacements();
   void logInfo(Object message);
   void logError(Object message, [Object? error, StackTrace? stackTrace]);
 
-  final HashMap<PlacementType, RemoteConfig> _remoteConfigs = HashMap();
+  final HashMap<BasePlacementType, BaseRemoteConfig> _remoteConfigs = HashMap();
 
-  RemoteConfig remoteConfig(PlacementType type) {
-    RemoteConfig config = _remoteConfigs[type]!;
-    config = config.copyWith();
-    return config;
+  R remoteConfig(BasePlacementType type) {
+    final config = _remoteConfigs[type]!;
+    return config as R;
   }
 
   void setRemoteConfig(
-    RemoteConfig value,
-    PlacementType type, {
+    BaseRemoteConfig value,
+    BasePlacementType type, {
     bool log = true,
   }) {
     _remoteConfigs[type] = value;

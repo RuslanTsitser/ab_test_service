@@ -1,6 +1,7 @@
 import 'package:apphud/models/product_details/one_time_purchase_offer_details_wrapper.dart';
 
 import '../../model/subscription_period.dart';
+import '../../model/trial_period.dart';
 
 extension OneTimePurchaseOfferDetailsWrapperExtension
     on OneTimePurchaseOfferDetailsWrapper {
@@ -28,8 +29,8 @@ extension OneTimePurchaseOfferDetailsWrapperExtension
     return price;
   }
 
-  bool getWithTrial() {
-    return false;
+  TrialPeriod getTrialPeriod() {
+    return TrialPeriod.noTrial;
   }
 
   SubscriptionPeriod? getSubscriptionPeriod() {

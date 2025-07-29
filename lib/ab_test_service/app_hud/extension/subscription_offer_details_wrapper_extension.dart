@@ -2,6 +2,7 @@ import 'package:apphud/models/product_details/subscription_offer_details.dart';
 import 'package:collection/collection.dart';
 
 import '../../model/subscription_period.dart';
+import '../../model/trial_period.dart';
 
 extension SubscriptionOfferDetailsWrapperExtension
     on SubscriptionOfferDetailsWrapper {
@@ -16,8 +17,8 @@ extension SubscriptionOfferDetailsWrapperExtension
         .reduce(
           (value, element) =>
               value.priceAmountMicros < element.priceAmountMicros
-              ? value
-              : element,
+                  ? value
+                  : element,
         )
         .priceAmountMicros;
 
@@ -43,16 +44,16 @@ extension SubscriptionOfferDetailsWrapperExtension
           .reduce(
             (value, element) =>
                 value.priceAmountMicros > element.priceAmountMicros
-                ? value
-                : element,
+                    ? value
+                    : element,
           )
           .priceAmountMicros;
       final discountPrice = phases
           .reduce(
             (value, element) =>
                 value.priceAmountMicros < element.priceAmountMicros
-                ? value
-                : element,
+                    ? value
+                    : element,
           )
           .priceAmountMicros;
       return ((price - discountPrice) / price * 100).toInt();
@@ -69,8 +70,8 @@ extension SubscriptionOfferDetailsWrapperExtension
         .reduce(
           (value, element) =>
               value.priceAmountMicros < element.priceAmountMicros
-              ? value
-              : element,
+                  ? value
+                  : element,
         )
         .formattedPrice;
     return price;
@@ -84,10 +85,10 @@ extension SubscriptionOfferDetailsWrapperExtension
     return price;
   }
 
-  bool getWithTrial() {
+  TrialPeriod getTrialPeriod() {
     final phases = pricingPhases;
     final withTrial = phases.any((element) => element.priceAmountMicros == 0);
-    return withTrial;
+    return withTrial ? TrialPeriod.threeDays : TrialPeriod.noTrial;
   }
 
   SubscriptionPeriod? getSubscriptionPeriod() {
@@ -105,8 +106,7 @@ extension SubscriptionOfferDetailsWrapperExtension
 
   String priceCurrency() {
     final phases = pricingPhases;
-    final price =
-        phases
+    final price = phases
             .firstWhereOrNull((element) => element.billingCycleCount == 0)
             ?.priceCurrencyCode ??
         '';

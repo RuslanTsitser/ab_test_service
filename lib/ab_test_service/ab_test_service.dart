@@ -1,16 +1,16 @@
+import 'model/base_placement_type.dart';
+import 'model/base_product_type.dart';
+import 'model/base_remote_config.dart';
 import 'model/paywall_product.dart';
-import 'model/placement_type.dart';
-import 'model/product_type.dart';
 import 'model/purchase_entity.dart';
-import 'model/remote_config.dart';
 import 'model/user_premium_source.dart';
 
 /// {@template ab_test_service}
 /// AbTestService interface.
 /// {@endtemplate}
-abstract class AbTestService {
+abstract class BaseAbTestService<R extends BaseRemoteConfig> {
   /// {@macro ab_test_service}
-  const AbTestService();
+  const BaseAbTestService();
 
   /// Check if user is offline
   bool get isOffline;
@@ -19,31 +19,31 @@ abstract class AbTestService {
   String? get userId;
 
   /// Set user is premium or not
-  /// - [value] user premium source [UserPremiumSource]
+  /// - [value] user premium source [S]
   Future<void> setPremium(UserPremiumSource value);
 
   /// Get user premium source
   UserPremiumSource get userPremiumSource;
 
   /// Get placement by type
-  /// - [type] placement type [PlacementType]
-  String appHudPlacement(PlacementType type);
+  /// - [type] placement type [P]
+  String appHudPlacement(BasePlacementType type);
 
   /// Get paywall by type
-  /// - [type] placement type [PlacementType]
-  String appHudPaywall(PlacementType type);
+  /// - [type] placement type [P]
+  String appHudPaywall(BasePlacementType type);
 
   /// Get remote config by type
-  /// - [type] placement type [PlacementType]
-  RemoteConfig remoteConfig(PlacementType type);
+  /// - [type] placement type [P]
+  R remoteConfig(BasePlacementType type);
 
   /// Set remote config by type
-  /// - [value] remote config [RemoteConfig]
-  /// - [type] placement type [PlacementType]
+  /// - [value] remote config [R]
+  /// - [type] placement type [BasePlacementType]
   /// - [log] default is true
   void setRemoteConfig(
-    RemoteConfig value,
-    PlacementType type, {
+    covariant BaseRemoteConfig value,
+    BasePlacementType type, {
     bool log = true,
   });
 
@@ -54,32 +54,32 @@ abstract class AbTestService {
   Future<void> restore();
 
   /// Purchase paywall
-  /// - [type] placement type [PlacementType]
-  /// - [productType] product type [ProductType]. Default is [ProductType.current]
+  /// - [type] placement type [BasePlacementType]
+  /// - [productType] product type [BaseProductType]. Default is [BaseProductType.current]
   /// - [onPurchase] purchase callback [PurchaseCallback]
-  /// - [config] remote config [RemoteConfig]
+  /// - [config] remote config [R]
   Future<PurchaseEntity?> purchasePaywall(
-    PlacementType type, {
-    required ProductType productType,
-    required RemoteConfig config,
+    BasePlacementType type, {
+    required BaseProductType productType,
+    required R config,
   });
 
   /// Log show paywall
-  /// - [type] placement type [PlacementType]
-  Future<void> logShowPaywall(PlacementType type);
+  /// - [type] placement type [BasePlacementType]
+  Future<void> logShowPaywall(BasePlacementType type);
 
   /// Log close paywall
-  /// - [type] placement type [PlacementType]
-  Future<void> logClosePaywall(PlacementType type);
+  /// - [type] placement type [BasePlacementType]
+  Future<void> logClosePaywall(BasePlacementType type);
 
   /// Log purchase paywall
-  /// - [type] placement type [PlacementType]
-  /// - [productType] product type [ProductType]
-  /// - [config] remote config [RemoteConfig]
+  /// - [type] placement type [BasePlacementType]
+  /// - [productType] product type [BaseProductType]
+  /// - [config] remote config [R]
   PaywallProduct paywallProduct(
-    PlacementType type,
-    ProductType productType, {
-    required RemoteConfig config,
+    BasePlacementType type,
+    BaseProductType productType, {
+    required R config,
   });
 
   /// Set user property

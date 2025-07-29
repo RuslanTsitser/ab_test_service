@@ -12,4 +12,14 @@ class ProductEntity {
   final double? price;
   final bool isSubscription;
   final bool isWithTrial;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'product_id': productId,
+      'currency': currency,
+      'price': price,
+      'is_subscription': isSubscription,
+      'is_with_trial': isWithTrial,
+    };
+  }
 }

@@ -2,6 +2,7 @@ import 'package:apphud/models/apphud_models/apphud_product.dart';
 import 'package:apphud/models/sk_product/discount_payment_mode_wrapper.dart';
 
 import '../../model/product_entity.dart';
+import '../../model/trial_period.dart';
 import 'product_details_wrapper_extension.dart';
 
 extension ApphudProductCopyWithExtension on ApphudProduct {
@@ -17,7 +18,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
   bool get isWithTrial {
     if (isSubscription) {
       if (productDetails != null) {
-        return productDetails?.getWithTrial() ?? false;
+        return productDetails?.getTrialPeriod() != TrialPeriod.noTrial;
       } else if (skProduct != null) {
         return skProduct!.introductoryPrice?.paymentMode ==
             SKProductDiscountPaymentMode.freeTrail;
@@ -41,9 +42,8 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
         );
       } else if (androidProduct != null) {
         final currency = androidProduct.priceCurrency();
-        final double price = isWithTrial
-            ? 0
-            : androidProduct.getFullPriceValue() ?? 0;
+        final double price =
+            isWithTrial ? 0 : androidProduct.getFullPriceValue() ?? 0;
         return ProductEntity(
           productId: androidProduct.productId,
           currency: currency,
