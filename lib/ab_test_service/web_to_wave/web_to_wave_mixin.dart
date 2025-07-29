@@ -8,6 +8,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../app_hud/mixin/offline_mode_mixin.dart';
 
 mixin WebToWaveMixin on OfflineModeMixin {
+  /// Example: 'hello-world-api-key'
+  String get web2WaveApiKey;
+
+  /// Example: 'https://quiz.hello-world.com'
+  String get web2WaveBaseUrl;
+
+  /// Example: 'api/user/subscriptions'
+  String get path;
+
   /// Checks if the user has an active subscription in the Web2Wave service.
   Future<(bool, String?)> checkIsWeb2WavePremium() async {
     final userId = await getWeb2WaveUserId();
@@ -39,14 +48,12 @@ mixin WebToWaveMixin on OfflineModeMixin {
       return cachedIsPremium;
     }
 
-    final url = Uri.parse(
-      'https://quiz.ar-drawing.com/api/user/subscriptions?user=$userId',
-    );
+    final url = Uri.https(web2WaveBaseUrl, path, {'user': userId});
 
     try {
       final response = await http.get(
         url,
-        headers: {'api_key': 'e82eb044-2fc3-4208-89fa-5295ab35e072'},
+        headers: {'api_key': web2WaveApiKey},
       );
 
       if (response.statusCode == 200) {
