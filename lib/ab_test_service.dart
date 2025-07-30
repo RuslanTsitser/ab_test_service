@@ -26,5 +26,6 @@ export 'ab_test_service/model/product_entity.dart';
 export 'ab_test_service/model/purchase_entity.dart';
 export 'ab_test_service/model/purchase_type.dart';
 export 'ab_test_service/model/subscription_period.dart';
+export 'ab_test_service/model/trial_period.dart';
 export 'ab_test_service/model/user_premium_source.dart';
 export 'ab_test_service/web_to_wave/web_to_wave_mixin.dart';
