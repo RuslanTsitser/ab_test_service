@@ -15,7 +15,7 @@ mixin UserPremiumMixin {
 
   static const String isRestoredKey = 'isRestored';
 
-  late UserPremiumSource _userPremiumSource;
+  UserPremiumSource _userPremiumSource = UserPremiumSource.none;
   UserPremiumSource get userPremiumSource => _userPremiumSource;
   Future<void> setPremium(UserPremiumSource value) async {
     _userPremiumSource = value;
