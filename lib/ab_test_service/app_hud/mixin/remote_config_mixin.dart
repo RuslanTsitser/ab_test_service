@@ -15,8 +15,8 @@ mixin RemoteConfigMixin<R extends BaseRemoteConfig> {
 
   final HashMap<BasePlacementType, BaseRemoteConfig> _remoteConfigs = HashMap();
 
-  R remoteConfig(BasePlacementType type) {
-    final config = _remoteConfigs[type]!;
+  R remoteConfig(BasePlacementType type, {R? defaultValue}) {
+    final config = _remoteConfigs[type] ?? defaultValue;
     return config as R;
   }
 

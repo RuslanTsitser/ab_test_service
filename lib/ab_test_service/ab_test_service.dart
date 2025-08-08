@@ -35,7 +35,7 @@ abstract class BaseAbTestService<R extends BaseRemoteConfig> {
 
   /// Get remote config by type
   /// - [type] placement type [P]
-  R remoteConfig(BasePlacementType type);
+  R remoteConfig(BasePlacementType type, {R? defaultValue});
 
   /// Set remote config by type
   /// - [value] remote config [R]
