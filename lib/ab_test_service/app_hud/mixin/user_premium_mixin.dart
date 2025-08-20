@@ -52,10 +52,8 @@ mixin UserPremiumMixin {
       final pref = await SharedPreferences.getInstance();
       final isRestored = pref.getBool(isRestoredKey) ?? false;
       if (!isRestored) {
-        final result = await Apphud.restorePurchases();
-        final isPremium = result.subscriptions.any(
-          (element) => element.isActive,
-        );
+        await Apphud.restorePurchases();
+        final isPremium = await Apphud.hasPremiumAccess();
         await setPremium(
           isPremium ? UserPremiumSource.apphud : UserPremiumSource.none,
         );
