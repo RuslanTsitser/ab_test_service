@@ -6,7 +6,6 @@ import 'package:apphud/models/sk_product/subscription_period_time_wrapper.dart';
 import 'package:collection/collection.dart';
 
 import '../../../ab_test_service.dart';
-import '../../model/trial_period.dart';
 
 enum ProductLevel {
   current,
@@ -180,6 +179,8 @@ mixin ProductMixin {
       if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.day &&
           subscriptionPeriod.numberOfUnits == 7) {
         return SubscriptionPeriod.week;
+      } else if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.month) {
+        return SubscriptionPeriod.month;
       } else {
         return SubscriptionPeriod.year;
       }
