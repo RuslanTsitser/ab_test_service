@@ -3,6 +3,7 @@ import 'trial_period.dart';
 
 class PaywallProduct {
   const PaywallProduct({
+    required this.productName,
     required this.priceCurrency,
     required this.trialPeriod,
     this.subscriptionPeriod,
@@ -14,6 +15,7 @@ class PaywallProduct {
     this.discountPercent,
   });
 
+  final String? productName;
   final String priceCurrency;
   final TrialPeriod trialPeriod;
   final SubscriptionPeriod? subscriptionPeriod;
@@ -27,6 +29,7 @@ class PaywallProduct {
   bool get withTrial => trialPeriod != TrialPeriod.noTrial;
 
   PaywallProduct copyWith({
+    String? productName,
     String? priceCurrency,
     TrialPeriod? trialPeriod,
     SubscriptionPeriod? subscriptionPeriod,
@@ -38,6 +41,7 @@ class PaywallProduct {
     PaywallProduct? parentProduct,
   }) =>
       PaywallProduct(
+        productName: productName ?? this.productName,
         priceCurrency: priceCurrency ?? this.priceCurrency,
         trialPeriod: trialPeriod ?? this.trialPeriod,
         subscriptionPeriod: subscriptionPeriod ?? this.subscriptionPeriod,

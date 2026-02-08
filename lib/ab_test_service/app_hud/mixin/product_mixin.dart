@@ -23,6 +23,8 @@ mixin ProductMixin {
     BaseProductType productType, {
     required BaseRemoteConfig config,
   }) {
+    final productName =
+        getProductName(type, productType, isParent: false, config: config);
     final priceCurrency =
         this.priceCurrency(type, productType, isParent: false, config: config);
     final withTrial =
@@ -46,6 +48,8 @@ mixin ProductMixin {
         getFullPrice(type, productType, isParent: true, config: config);
     if (parentFullPrice != null) {
       parentProduct = PaywallProduct(
+        productName:
+            getProductName(type, productType, isParent: true, config: config),
         priceCurrency: this
             .priceCurrency(type, productType, isParent: true, config: config),
         trialPeriod:
@@ -65,6 +69,7 @@ mixin ProductMixin {
     }
 
     return PaywallProduct(
+      productName: productName,
       priceCurrency: priceCurrency,
       trialPeriod: withTrial,
       subscriptionPeriod: subscriptionPeriod,
@@ -75,6 +80,18 @@ mixin ProductMixin {
       discountPercent: discountPercent,
       parentProduct: parentProduct,
     );
+  }
+
+  String? getProductName(
+    BasePlacementType type,
+    BaseProductType purchaseType, {
+    required bool isParent,
+    required BaseRemoteConfig config,
+  }) {
+    final productName =
+        getProductByType(type, purchaseType, isParent: isParent, config: config)
+            ?.name;
+    return productName ?? '';
   }
 
   String priceCurrency(
