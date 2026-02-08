@@ -93,15 +93,22 @@ extension SubscriptionOfferDetailsWrapperExtension
 
   SubscriptionPeriod? getSubscriptionPeriod() {
     final phases = pricingPhases;
-    final subscriptionPeriod = phases
+    final billingPeriod = phases
         .firstWhereOrNull((element) => element.billingCycleCount == 0)
         ?.billingPeriod;
-    if (subscriptionPeriod == 'P1W') {
-      return SubscriptionPeriod.week;
-    } else if (subscriptionPeriod == 'P1Y') {
-      return SubscriptionPeriod.year;
+    if (billingPeriod == null || billingPeriod.isEmpty) return null;
+    switch (billingPeriod) {
+      case 'P1W':
+        return SubscriptionPeriod.week;
+      case 'P1M':
+        return SubscriptionPeriod.month;
+      case 'P3M':
+        return SubscriptionPeriod.threeMonths;
+      case 'P1Y':
+        return SubscriptionPeriod.year;
+      default:
+        return null;
     }
-    return null;
   }
 
   String priceCurrency() {

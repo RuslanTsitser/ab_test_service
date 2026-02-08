@@ -180,7 +180,9 @@ mixin ProductMixin {
           subscriptionPeriod.numberOfUnits == 7) {
         return SubscriptionPeriod.week;
       } else if (subscriptionPeriod.unit == SKSubscriptionPeriodTime.month) {
-        return SubscriptionPeriod.month;
+        return subscriptionPeriod.numberOfUnits == 3
+            ? SubscriptionPeriod.threeMonths
+            : SubscriptionPeriod.month;
       } else {
         return SubscriptionPeriod.year;
       }
