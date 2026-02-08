@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.10
+
+- feat: add product name to PaywallProduct model
+
 ## 0.0.9
 
 - feat: add devtools_options.yaml for Dart & Flutter DevTools configuration
