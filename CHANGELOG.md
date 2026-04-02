@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.12
+
+- chore: bump package version to 0.0.12 in pubspec.yaml
+- refactor: clean up logClosePaywall method in LogPaywallMixin
+- refactor: update cached premium source handling logic in UserPremiumMixin
+
 ## 0.0.11
 
 - feat: add debugPremiumDays property to UserPremiumSource and its implementations
