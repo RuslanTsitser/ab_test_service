@@ -7,6 +7,7 @@ abstract class UserPremiumSource {
   static UserPremiumSource get apphud => const UserPremiumSourceApphud();
 
   bool get isPremium;
+  int? get debugPremiumDays;
 }
 
 class UserPremiumSourceNone extends UserPremiumSource {
@@ -14,6 +15,9 @@ class UserPremiumSourceNone extends UserPremiumSource {
 
   @override
   bool get isPremium => false;
+
+  @override
+  int? get debugPremiumDays => null;
 }
 
 class UserPremiumSourceDebug extends UserPremiumSource {
@@ -21,6 +25,9 @@ class UserPremiumSourceDebug extends UserPremiumSource {
 
   @override
   bool get isPremium => true;
+
+  @override
+  int? get debugPremiumDays => 7;
 }
 
 class UserPremiumSourceApphud extends UserPremiumSource {
@@ -28,4 +35,7 @@ class UserPremiumSourceApphud extends UserPremiumSource {
 
   @override
   bool get isPremium => true;
+
+  @override
+  int? get debugPremiumDays => null;
 }
