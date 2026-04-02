@@ -44,10 +44,9 @@ mixin UserPremiumMixin {
         if (difference > cachedPremiumSource.debugPremiumDays!) {
           await setPremium(UserPremiumSource.none);
         }
-      } else {
-        _userPremiumSource = cachedPremiumSource;
-        return;
       }
+      _userPremiumSource = cachedPremiumSource;
+      return;
     }
 
     try {

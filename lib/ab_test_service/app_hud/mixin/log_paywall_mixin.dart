@@ -16,10 +16,6 @@ mixin LogPaywallMixin {
   }
 
   Future<void> logClosePaywall(BasePlacementType type) async {
-    final paywall = getPaywallByType(type);
-    if (paywall != null) {
-      await Apphud.paywallClosed(paywall);
-    }
     logInfo('LogPaywallMixin.logClosePaywall $type');
   }
 }
