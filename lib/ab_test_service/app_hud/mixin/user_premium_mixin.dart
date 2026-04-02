@@ -35,7 +35,7 @@ mixin UserPremiumMixin {
 
     final debugPremiumDate = await getDebugPremiumDate();
     if (debugPremiumDate != null) {
-      final now = DateTime.now().add(const Duration(days: 2));
+      final now = DateTime.now();
       final difference = now.difference(debugPremiumDate).inDays;
       if (difference > 7) {
         await setPremium(UserPremiumSource.none);
