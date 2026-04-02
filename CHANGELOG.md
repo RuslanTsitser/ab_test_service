@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.11
+
+- feat: add debugPremiumDays property to UserPremiumSource and its implementations
+- feat: add isDebugPremium property to UserPremiumSource and its implementations
+- fix: adjust premium date calculation to use current date instead of a fixed future date in UserPremiumMixin
+- refactor: enhance premium status handling in UserPremiumMixin to use debugPremiumDays and cachedPremiumSource
+- chore: bump package version to 0.0.11 in pubspec.yaml
+
 ## 0.0.10
 
 - feat: add product name to PaywallProduct model
