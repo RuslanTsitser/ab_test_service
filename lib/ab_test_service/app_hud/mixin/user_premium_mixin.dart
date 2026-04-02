@@ -20,7 +20,7 @@ mixin UserPremiumMixin {
   Future<void> setPremium(UserPremiumSource value) async {
     _userPremiumSource = value;
     await cacheIsPremium(value);
-    if (value == UserPremiumSource.debug) {
+    if (value.debugPremiumDays != null) {
       await setDebugPremiumDate(DateTime.now());
     }
     logInfo('UserPremiumMixin setPremium: $value');
@@ -33,18 +33,20 @@ mixin UserPremiumMixin {
       return;
     }
 
+    final cachedPremiumSource = await getCachedIsPremium();
     final debugPremiumDate = await getDebugPremiumDate();
-    if (debugPremiumDate != null) {
-      final now = DateTime.now();
-      final difference = now.difference(debugPremiumDate).inDays;
-      if (difference > 7) {
-        await setPremium(UserPremiumSource.none);
-      } else {
-        final isPremium = await getCachedIsPremium();
-        _userPremiumSource = isPremium;
-        if (isPremium == UserPremiumSource.debug) {
-          return;
+
+    if (cachedPremiumSource.isDebugPremium) {
+      if (cachedPremiumSource.debugPremiumDays != null &&
+          debugPremiumDate != null) {
+        final now = DateTime.now();
+        final difference = now.difference(debugPremiumDate).inDays;
+        if (difference > cachedPremiumSource.debugPremiumDays!) {
+          await setPremium(UserPremiumSource.none);
         }
+      } else {
+        _userPremiumSource = cachedPremiumSource;
+        return;
       }
     }
 
