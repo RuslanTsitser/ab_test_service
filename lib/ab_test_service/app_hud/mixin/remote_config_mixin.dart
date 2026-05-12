@@ -37,6 +37,9 @@ mixin RemoteConfigMixin<R extends BaseRemoteConfig> {
 
   List<ApphudPlacement> _placements = [];
   List<ApphudPlacement> get placements => _placements;
+  void setPlacements(List<ApphudPlacement> value) {
+    _placements = value;
+  }
 
   Future<void> fetchPlacements() async {
     if (isOffline) {

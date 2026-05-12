@@ -17,6 +17,10 @@ mixin UserPremiumMixin {
 
   UserPremiumSource _userPremiumSource = UserPremiumSource.none;
   UserPremiumSource get userPremiumSource => _userPremiumSource;
+  void setUserPremiumSource(UserPremiumSource value) {
+    _userPremiumSource = value;
+  }
+
   Future<void> setPremium(UserPremiumSource value) async {
     _userPremiumSource = value;
     await cacheIsPremium(value);
@@ -29,7 +33,7 @@ mixin UserPremiumMixin {
   Future<void> checkUserPremium() async {
     if (isOffline) {
       final isPremium = await getCachedIsPremium();
-      await setPremium(isPremium);
+      setUserPremiumSource(isPremium);
       return;
     }
 

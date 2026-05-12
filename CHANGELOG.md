@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.13
+
+- feat: add setPlacements to RemoteConfigMixin for external placement updates
+- feat: add setUserPremiumSource to UserPremiumMixin for syncing premium source without persisting to cache
+- chore: bump package version to 0.0.13 in pubspec.yaml
+
 ## 0.0.12
 
 - chore: bump package version to 0.0.12 in pubspec.yaml
