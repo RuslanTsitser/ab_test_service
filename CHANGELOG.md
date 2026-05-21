@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.14
+
+- feat: add isInitialized flag to ApphudMixin to track Apphud SDK initialization state
+- chore: bump package version to 0.0.14 in pubspec.yaml
+
 ## 0.0.13
 
 - feat: add setPlacements to RemoteConfigMixin for external placement updates
