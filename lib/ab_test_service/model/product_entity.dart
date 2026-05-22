@@ -5,6 +5,7 @@ class ProductEntity {
     this.price,
     required this.isSubscription,
     required this.isWithTrial,
+    this.hasNetworkIssue,
   });
 
   final String? productId;
@@ -12,6 +13,7 @@ class ProductEntity {
   final double? price;
   final bool isSubscription;
   final bool isWithTrial;
+  final bool? hasNetworkIssue;
 
   Map<String, dynamic> toJson() {
     return {
@@ -20,6 +22,7 @@ class ProductEntity {
       'price': price,
       'is_subscription': isSubscription,
       'is_with_trial': isWithTrial,
+      'has_network_issue': hasNetworkIssue,
     };
   }
 }

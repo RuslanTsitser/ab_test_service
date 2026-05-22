@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:apphud/apphud.dart';
 import 'package:apphud/models/apphud_models/apphud_product.dart';
+import 'package:apphud/models/apphud_models/composite/apphud_purchase_result.dart';
 
 import '../../model/base_placement_type.dart';
 import '../../model/base_product_type.dart';
@@ -58,20 +59,27 @@ mixin PurchaseMixin {
       isParent: false,
     );
 
+    ApphudPurchaseResult? purchaseResult;
+
     if (subscriptions.isEmpty ||
         Platform.isAndroid ||
         config.promoOfferId == null) {
-      await Apphud.purchase(
+      purchaseResult = await Apphud.purchase(
         product: product,
         offerIdToken: product?.productDetails?.getOfferToken(),
       );
     } else if (product != null) {
-      await Apphud.purchasePromo(
+      purchaseResult = await Apphud.purchasePromo(
         productId: product.productId,
         discountID: config.promoOfferId!,
       );
     }
-    final entity = product?.getEntity();
+    if (purchaseResult != null) {
+      if (purchaseResult.error?.networkIssue == true) {
+        return product?.getEntity(hasNetworkIssue: true);
+      }
+    }
+    final entity = product?.getEntity(hasNetworkIssue: false);
     logInfo('PurchaseMixin._purchase $type $entity');
     return entity;
   }

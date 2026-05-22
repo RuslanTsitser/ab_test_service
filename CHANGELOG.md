@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.15
+
+- feat: add hasNetworkIssue to ProductEntity and expose it in toJson
+- feat: detect purchase network errors in PurchaseMixin via ApphudPurchaseResult and pass hasNetworkIssue to getEntity
+- feat: add hasNetworkIssue parameter to ApphudProductCopyWithExtension.getEntity
+- chore: bump package version to 0.0.15 in pubspec.yaml
+
 ## 0.0.14
 
 - feat: add isInitialized flag to ApphudMixin to track Apphud SDK initialization state

@@ -27,7 +27,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
     return false;
   }
 
-  ProductEntity getEntity() {
+  ProductEntity getEntity({bool hasNetworkIssue = false}) {
     final skProduct = this.skProduct;
     final androidProduct = productDetails;
 
@@ -39,6 +39,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           price: skProduct.price,
           isSubscription: true,
           isWithTrial: isWithTrial,
+          hasNetworkIssue: hasNetworkIssue,
         );
       } else if (androidProduct != null) {
         final currency = androidProduct.priceCurrency();
@@ -50,12 +51,14 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           price: price,
           isSubscription: true,
           isWithTrial: isWithTrial,
+          hasNetworkIssue: hasNetworkIssue,
         );
       } else {
         return ProductEntity(
           productId: productId,
           isSubscription: true,
           isWithTrial: isWithTrial,
+          hasNetworkIssue: hasNetworkIssue,
         );
       }
     } else {
@@ -66,6 +69,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           price: skProduct.price,
           isSubscription: false,
           isWithTrial: false,
+          hasNetworkIssue: hasNetworkIssue,
         );
       } else if (androidProduct != null) {
         final currency = androidProduct.priceCurrency();
@@ -76,12 +80,14 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           price: price,
           isSubscription: false,
           isWithTrial: false,
+          hasNetworkIssue: hasNetworkIssue,
         );
       } else {
         return ProductEntity(
           productId: productId,
           isSubscription: false,
           isWithTrial: false,
+          hasNetworkIssue: hasNetworkIssue,
         );
       }
     }
