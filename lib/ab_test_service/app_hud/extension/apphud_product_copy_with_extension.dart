@@ -27,7 +27,10 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
     return false;
   }
 
-  ProductEntity getEntity({bool hasNetworkIssue = false}) {
+  ProductEntity getEntity({
+    bool hasNetworkIssue = false,
+    String? errorMessage,
+  }) {
     final skProduct = this.skProduct;
     final androidProduct = productDetails;
 
@@ -40,6 +43,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: true,
           isWithTrial: isWithTrial,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       } else if (androidProduct != null) {
         final currency = androidProduct.priceCurrency();
@@ -52,6 +56,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: true,
           isWithTrial: isWithTrial,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       } else {
         return ProductEntity(
@@ -59,6 +64,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: true,
           isWithTrial: isWithTrial,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       }
     } else {
@@ -70,6 +76,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: false,
           isWithTrial: false,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       } else if (androidProduct != null) {
         final currency = androidProduct.priceCurrency();
@@ -81,6 +88,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: false,
           isWithTrial: false,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       } else {
         return ProductEntity(
@@ -88,6 +96,7 @@ extension ApphudProductCopyWithExtension on ApphudProduct {
           isSubscription: false,
           isWithTrial: false,
           hasNetworkIssue: hasNetworkIssue,
+          errorMessage: errorMessage,
         );
       }
     }

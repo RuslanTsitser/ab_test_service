@@ -75,11 +75,14 @@ mixin PurchaseMixin {
       );
     }
     if (purchaseResult != null) {
-      if (purchaseResult.error?.networkIssue == true) {
-        return product?.getEntity(hasNetworkIssue: true);
+      if (purchaseResult.error?.message != null) {
+        return product?.getEntity(errorMessage: purchaseResult.error?.message);
       }
     }
-    final entity = product?.getEntity(hasNetworkIssue: false);
+    final entity = product?.getEntity(
+      hasNetworkIssue: false,
+      errorMessage: null,
+    );
     logInfo('PurchaseMixin._purchase $type $entity');
     return entity;
   }
