@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.0.16
+
+- feat: add errorMessage to ProductEntity and expose it in toJson
+- feat: return purchase error message from PurchaseMixin via ApphudPurchaseResult.error.message
+- feat: add errorMessage parameter to ApphudProductCopyWithExtension.getEntity
+- refactor: replace hasNetworkIssue-based purchase error detection with errorMessage in PurchaseMixin
+- chore: bump package version to 0.0.16 in pubspec.yaml
+
 ## 0.0.15
 
 - feat: add hasNetworkIssue to ProductEntity and expose it in toJson
