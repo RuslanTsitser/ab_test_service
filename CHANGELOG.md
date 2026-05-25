@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.17
+
+- fix: pass hasNetworkIssue from ApphudPurchaseResult.error.networkIssue when purchase fails in PurchaseMixin
+- chore: bump package version to 0.0.17 in pubspec.yaml
+
 ## 0.0.16
 
 - feat: add errorMessage to ProductEntity and expose it in toJson
