@@ -76,7 +76,10 @@ mixin PurchaseMixin {
     }
     if (purchaseResult != null) {
       if (purchaseResult.error?.message != null) {
-        return product?.getEntity(errorMessage: purchaseResult.error?.message);
+        return product?.getEntity(
+          errorMessage: purchaseResult.error?.message,
+          hasNetworkIssue: purchaseResult.error?.networkIssue ?? false,
+        );
       }
     }
     final entity = product?.getEntity(
