@@ -86,9 +86,25 @@ extension SubscriptionOfferDetailsWrapperExtension
   }
 
   TrialPeriod getTrialPeriod() {
-    final phases = pricingPhases;
-    final withTrial = phases.any((element) => element.priceAmountMicros == 0);
-    return withTrial ? TrialPeriod.threeDays : TrialPeriod.noTrial;
+    final billingPeriod = pricingPhases
+        .firstWhereOrNull((element) => element.priceAmountMicros == 0)
+        ?.billingPeriod;
+    if (billingPeriod == null || billingPeriod.isEmpty) {
+      return TrialPeriod.noTrial;
+    }
+    switch (billingPeriod) {
+      case 'P3D':
+        return TrialPeriod.threeDays;
+      case 'P7D':
+      case 'P1W':
+        return TrialPeriod.oneWeek;
+      case 'P1M':
+        return TrialPeriod.oneMonth;
+      case 'P1Y':
+        return TrialPeriod.oneYear;
+      default:
+        return TrialPeriod.noTrial;
+    }
   }
 
   SubscriptionPeriod? getSubscriptionPeriod() {

@@ -220,7 +220,6 @@ mixin ProductMixin {
       config: config,
     );
     if (androidProductDetails != null) {
-      // TODO: add trial period for android
       return androidProductDetails.getTrialPeriod();
     }
 
