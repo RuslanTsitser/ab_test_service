@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.0
+
+- feat: add promoOfferId parameter to PurchaseMixin.purchasePaywall for iOS promo purchases
+- feat: detect Android trial duration from billing period in SubscriptionOfferDetailsWrapperExtension.getTrialPeriod (P3D, P7D/P1W, P1M, P1Y)
+- breaking: remove promoOfferId from BaseRemoteConfig; pass it directly to purchasePaywall instead
+- chore: bump package version to 0.1.0 in pubspec.yaml
+
 ## 0.0.17
 
 - fix: pass hasNetworkIssue from ApphudPurchaseResult.error.networkIssue when purchase fails in PurchaseMixin
