@@ -29,9 +29,14 @@ mixin PurchaseMixin {
     BasePlacementType type, {
     required BaseProductType productType,
     required BaseRemoteConfig config,
+    String? promoOfferId,
   }) async {
-    final productEntity =
-        await _purchase(type, productType: productType, config: config);
+    final productEntity = await _purchase(
+      type,
+      productType: productType,
+      config: config,
+      promoOfferId: promoOfferId,
+    );
     await checkUserPremium();
 
     if (productEntity != null) {
@@ -49,6 +54,7 @@ mixin PurchaseMixin {
     BasePlacementType type, {
     required BaseProductType productType,
     required BaseRemoteConfig config,
+    String? promoOfferId,
   }) async {
     final subscriptions = await Apphud.subscriptions();
 
@@ -61,9 +67,7 @@ mixin PurchaseMixin {
 
     ApphudPurchaseResult? purchaseResult;
 
-    if (subscriptions.isEmpty ||
-        Platform.isAndroid ||
-        config.promoOfferId == null) {
+    if (subscriptions.isEmpty || Platform.isAndroid || promoOfferId == null) {
       purchaseResult = await Apphud.purchase(
         product: product,
         offerIdToken: product?.productDetails?.getOfferToken(),
@@ -71,7 +75,7 @@ mixin PurchaseMixin {
     } else if (product != null) {
       purchaseResult = await Apphud.purchasePromo(
         productId: product.productId,
-        discountID: config.promoOfferId!,
+        discountID: promoOfferId,
       );
     }
     if (purchaseResult != null) {
