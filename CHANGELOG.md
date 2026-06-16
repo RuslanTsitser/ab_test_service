@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- chore: bump apphud dependency to ^3.2.4
+- chore: bump package version to 0.2.0 in pubspec.yaml
+
 ## 0.1.0
 
 - feat: add promoOfferId parameter to PurchaseMixin.purchasePaywall for iOS promo purchases
