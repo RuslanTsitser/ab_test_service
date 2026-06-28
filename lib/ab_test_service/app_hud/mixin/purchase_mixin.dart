@@ -30,12 +30,14 @@ mixin PurchaseMixin {
     required BaseProductType productType,
     required BaseRemoteConfig config,
     String? promoOfferId,
+    bool isConsumable = false,
   }) async {
     final productEntity = await _purchase(
       type,
       productType: productType,
       config: config,
       promoOfferId: promoOfferId,
+      isConsumable: isConsumable,
     );
     await checkUserPremium();
 
@@ -55,6 +57,7 @@ mixin PurchaseMixin {
     required BaseProductType productType,
     required BaseRemoteConfig config,
     String? promoOfferId,
+    bool isConsumable = false,
   }) async {
     final subscriptions = await Apphud.subscriptions();
 
@@ -66,6 +69,18 @@ mixin PurchaseMixin {
     );
 
     ApphudPurchaseResult? purchaseResult;
+
+    if (isConsumable) {
+      purchaseResult = await Apphud.purchase(
+        product: product,
+        offerIdToken: product?.productDetails?.getOfferToken(),
+        consumableInappProduct: true,
+      );
+      return product?.getEntity(
+        errorMessage: purchaseResult.error?.message,
+        hasNetworkIssue: purchaseResult.error?.networkIssue ?? false,
+      );
+    }
 
     if (subscriptions.isEmpty || Platform.isAndroid || promoOfferId == null) {
       purchaseResult = await Apphud.purchase(
