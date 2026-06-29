@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.1
+
+- feat: add isConsumable parameter to PurchaseMixin.purchasePaywall for consumable in-app purchases via Apphud.purchase with consumableInappProduct
+- chore: bump package version to 0.2.1 in pubspec.yaml
+
 ## 0.2.0
 
 - chore: bump apphud dependency to ^3.2.4
