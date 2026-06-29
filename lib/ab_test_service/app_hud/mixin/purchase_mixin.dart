@@ -42,6 +42,11 @@ mixin PurchaseMixin {
     await checkUserPremium();
 
     if (productEntity != null) {
+      if (isConsumable) {
+        return PurchaseEntity(
+            purchaseType: PurchaseType.purchaseConsumable,
+            product: productEntity);
+      }
       if (userPremiumSource.isPremium) {
         return PurchaseEntity(
             purchaseType: PurchaseType.purchase, product: productEntity);
