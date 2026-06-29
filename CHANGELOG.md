@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.2
+
+- feat: update UserPremiumMixin to determine premium status from active Apphud subscriptions instead of Apphud.hasPremiumAccess
+- chore: bump package version to 0.2.2 in pubspec.yaml
+
 ## 0.2.1
 
 - feat: add isConsumable parameter to PurchaseMixin.purchasePaywall for consumable in-app purchases via Apphud.purchase with consumableInappProduct
