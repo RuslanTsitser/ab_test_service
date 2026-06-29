@@ -69,12 +69,17 @@ mixin UserPremiumMixin {
             .setBool(isRestoredKey, true)
             .whenComplete(() => logInfo({'setIsRestored': true}));
       } else {
-        bool result = await Apphud.hasPremiumAccess();
+        final subscriptions = await Apphud.subscriptions();
+        final activeSubscriptions = subscriptions.where(
+          (element) => element.isActive,
+        );
+        final isPremium = activeSubscriptions.isNotEmpty;
+
         await cacheIsPremium(
-          result ? UserPremiumSource.apphud : UserPremiumSource.none,
+          isPremium ? UserPremiumSource.apphud : UserPremiumSource.none,
         );
         await setPremium(
-          result ? UserPremiumSource.apphud : UserPremiumSource.none,
+          isPremium ? UserPremiumSource.apphud : UserPremiumSource.none,
         );
       }
     } catch (error, stackTrace) {
